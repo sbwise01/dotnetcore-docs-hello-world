@@ -1,5 +1,7 @@
+ARG DOTNET_VERSION_TAG=6.0-alpine3.15
+
 # Start with the .NET SDK for building the app
-FROM bitnami/dotnet-sdk:6.0.407-debian-11-r3 AS build
+FROM ghcr.io/buildinglink/dotnet-sdk:$DOTNET_VERSION_TAG AS build
 # Work within a folder named `/source`
 WORKDIR /source
 
@@ -9,7 +11,7 @@ WORKDIR /source/dotnetcore-docs-hello-world
 RUN dotnet publish -c release -o /app 
 
 # final stage/image
-FROM ubuntu/dotnet-aspnet:6.0_edge
+FROM ghcr.io/buildinglink/dotnet-aspnet:$DOTNET_VERSION_TAG
 WORKDIR /app
 COPY --from=build /app ./
 
