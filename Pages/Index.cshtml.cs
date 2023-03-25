@@ -7,6 +7,7 @@ namespace dotnetcoresample.Pages;
 public class IndexModel : PageModel
 {
 
+    public string Password { get { return Environment.GetEnvironmentVariable("PASSWORD"); }  }
     public string OSVersion { get { return RuntimeInformation.OSDescription; }  }
     
     private readonly ILogger<IndexModel> _logger;

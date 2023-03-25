@@ -1,7 +1,5 @@
-ARG DOTNET_VERSION_TAG=6.0-alpine3.15
-
 # Start with the .NET SDK for building the app
-FROM ghcr.io/buildinglink/dotnet-sdk:$DOTNET_VERSION_TAG AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # Work within a folder named `/source`
 WORKDIR /source
 
@@ -11,7 +9,7 @@ WORKDIR /source/dotnetcore-docs-hello-world
 RUN dotnet publish -c release -o /app 
 
 # final stage/image
-FROM ghcr.io/buildinglink/dotnet-aspnet:$DOTNET_VERSION_TAG
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
 
